@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="opcionesSpinner">
+        <item>Estatal</item>
+        <item>Privado</item>
+    </string-array>
 </resources>
