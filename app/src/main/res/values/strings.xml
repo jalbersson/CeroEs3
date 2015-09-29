@@ -3,7 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="textoSpinner">Eliga el tipo de documento del que desea realizar la consulta</string>
     <string-array name="opcionesSpinner">
+        <item>Elija la opción</item>
         <item>Estatal</item>
         <item>Privado</item>
     </string-array>
