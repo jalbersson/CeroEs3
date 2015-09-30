@@ -1,18 +1,18 @@
 package com.example.jalber.ceroes3;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
-import com.parse.FindCallback;
+import com.example.jalber.ceroes3.auxiliar.Helper;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -21,14 +21,14 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     Spinner spinner;
     ArrayList<ParseFile> logo;
-    ImageView i;
+
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         logo=new ArrayList<ParseFile>();
-        progressDialog = ProgressDialog.show(MainActivity.this, "", "Downloading Image...", true);
+        progressDialog = ProgressDialog.show(MainActivity.this, "", "Descargando imagen...", true);
         // Locate the class table named "Footer" in Parse.com
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Logo");
         // Locate the objectId from the class
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         if (e == null)
                         {
-                            Log.d("test", "We've got data in data.");
+                            Log.d("test", "Llegaron datos.");
                             // Decode the Byte[] into
                             // Bitmap
                             Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -69,35 +69,44 @@ public class MainActivity extends AppCompatActivity
                         }
                         else
                         {
-                            Log.d("test", "There was a problem downloading the data.");
+                            Log.d("test", "Hubo un problema al traer los datos.");
                         }
                     }
                 });
             }
         });
-        /*ParseQuery<ParseObject> query=new ParseQuery<ParseObject>("Logo");
-        query.findInBackground(new FindCallback<ParseObject>()
-                               {
-                                   @Override
-                                   public void done(List<ParseObject> list, ParseException e)
-                                   {
-                                       if (e == null)
-                                       {
-                                           for (ParseObject foto : list)
-                                           {
-                                               ParseFile p=foto.getParseFile("AppPhoto");
-                                               logo.add(p);
-                                           }
-                                       }
-
-                                   }
-                               }
-        );*/
-
         spinner= (Spinner) findViewById(R.id.spinnerInicial);
+        spinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.opcionesSpinner, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        switch (position)
+        {
+            case 1:
+                Helper.seleccion=spinner.getItemAtPosition(position).toString();
+                Log.i("prueba: ", Helper.seleccion);
+                Intent intent = new Intent(this, activity_documentos.class);
+                startActivity(intent);
+                finish();
+                break;
+
+            case 2:
+                Intent intent2 = new Intent(this, activity_documentos.class);
+                startActivity(intent2);
+                finish();
+                break;
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent)
+    {
+
+    }
 }

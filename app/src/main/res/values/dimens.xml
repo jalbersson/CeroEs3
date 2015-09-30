@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="ancho_logo">170dp</dimen>
+    <dimen name="tamano_texto">25sp</dimen>
+    <dimen name="padding_btn">6dp</dimen>
+    <dimen name="ancho_btn">330dp</dimen>
 </resources>
